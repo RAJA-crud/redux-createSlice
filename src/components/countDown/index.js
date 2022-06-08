@@ -2,6 +2,7 @@ import './countDown.css'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { setTimer } from '../../redux/features/timerSlice';
+import { Popup } from '../Popup';
 function CountDown() {
   const [timerState, setTimerState] = useState({
     hours: 0,
@@ -9,20 +10,19 @@ function CountDown() {
     seconds: 0,
   });
   const { timer } = useSelector((state) => state.timerSlice);
-  const [over,setOver]=useState(false)
+  const [over, setOver] = useState(false)
   const dispatch = useDispatch()
 
   useEffect(() => {
     setTimerState(timer);
   }, [timer])
-  useEffect(()=>{
+  useEffect(() => {
     let timerID = setInterval(() => tick(), 1000);
     return () => clearInterval(timerID);
   })
-useEffect(()=>{
-
-  over && dispatch((setTimer(timerState)))
-},[over])
+  useEffect(() => {
+    over && dispatch((setTimer(timerState)))
+  }, [over])
 
   const tick = () => {
     if (timerState.hours == 0 && timerState.minutes == 0 && timerState.seconds == 0) setOver(true)
@@ -48,6 +48,9 @@ useEffect(()=>{
 
   return (
     <div className="countDown">
+      {
+        over && <Popup />
+      }
       <div id="hours" className="timeDisplay">{timerState.hours}</div>
       <div id="minutes" className="timeDisplay">{timerState.minutes}</div>
       <div id="seconds" className="timeDisplay">{timerState.seconds}</div>

@@ -2,7 +2,7 @@ import "./home.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { increment, decrement } from "../../helper/timeModify";
-import { setReminderData, setTimer } from "../../redux/features/timerSlice";
+import { setTimer } from "../../redux/features/timerSlice";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
